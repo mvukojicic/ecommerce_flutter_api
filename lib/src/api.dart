@@ -4,7 +4,7 @@
 
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
-import 'package:openapi/src/api/default_api.dart';
+import 'package:openapi/src/api/products_api.dart';
 import 'package:openapi/src/auth/api_key_auth.dart';
 import 'package:openapi/src/auth/basic_auth.dart';
 import 'package:openapi/src/auth/bearer_auth.dart';
@@ -78,7 +78,7 @@ class EcommerceApi {
 
   /// Get DefaultApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
-  DefaultApi getDefaultApi() {
-    return DefaultApi(dio, serializers);
+  ProductsApi getProductsApi() {
+    return ProductsApi(dio, serializers);
   }
 }

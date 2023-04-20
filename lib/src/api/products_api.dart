@@ -4,26 +4,24 @@
 
 import 'dart:async';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
-
-import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/product.dart';
 
-class DefaultApi {
-
+class ProductsApi {
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const DefaultApi(this._dio, this._serializers);
+  const ProductsApi(this._dio, this._serializers);
 
   /// Get a product by id
   /// Use to get a specific product by id
   ///
   /// Parameters:
-  /// * [productId] 
+  /// * [productId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -33,7 +31,7 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Product>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<Product>>> apiProductProductIdGet({ 
+  Future<Response<BuiltList<Product>>> apiProductProductIdGet({
     required num productId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -42,7 +40,8 @@ class DefaultApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/product/{productId}'.replaceAll('{' r'productId' '}', productId.toString());
+    final _path = r'/api/product/{productId}'
+        .replaceAll('{' r'productId' '}', productId.toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -71,7 +70,6 @@ class DefaultApi {
         _response.data!,
         specifiedType: _responseType,
       ) as BuiltList<Product>;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -107,7 +105,7 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Product>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<Product>>> apiProductsGet({ 
+  Future<Response<BuiltList<Product>>> apiProductsGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -144,7 +142,6 @@ class DefaultApi {
         _response.data!,
         specifiedType: _responseType,
       ) as BuiltList<Product>;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -181,7 +178,7 @@ class DefaultApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Product>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<Product>>> apiProductsSearchGet({ 
+  Future<Response<BuiltList<Product>>> apiProductsSearchGet({
     String? search,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -204,7 +201,9 @@ class DefaultApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (search != null) r'search': encodeQueryParameter(_serializers, search, const FullType(String)),
+      if (search != null)
+        r'search':
+            encodeQueryParameter(_serializers, search, const FullType(String)),
     };
 
     final _response = await _dio.request<Object>(
@@ -224,7 +223,6 @@ class DefaultApi {
         _response.data!,
         specifiedType: _responseType,
       ) as BuiltList<Product>;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -246,5 +244,4 @@ class DefaultApi {
       extra: _response.extra,
     );
   }
-
 }
